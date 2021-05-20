@@ -1,3 +1,15 @@
+
+<?php
+		
+		session_start();
+
+		$userid = $_SESSION['id'];
+		$username= $_SESSION['name'];
+		
+	
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +51,7 @@
 	        <a class="nav-link" href="create_post.php">Create POST</a>
 	      </li>
 
-	    <li class="nav-item">
+	     <li class="nav-item">
 	        <a class="nav-link" href="customer_posts.php">Customer POST</a>
 	      </li>
 
@@ -55,13 +67,34 @@
 	  </div>
 	</nav>
 
+	<div class="container" style="margin-bottom:200px;">
+     
+    <form action="action_page.php" method="POST">
+      
 
+      <div class="form-group">
+        <label for="post">Write your post:</label>
+        <textarea class="form-control" id="post" name="post"></textarea>
+      </div>
 
-
+       <div class="form-group">
+        <label for="Contact">Contact Number:</label>
+        <input class="form-control" id="contact" name="contact">
+      </div>
+      
+      <input type="hidden" name="id" value="<?php echo $userid ; ?>">
+      <input type="hidden" name="name" value="<?php echo $username ; ?>">
+      
+      <button type="submit" class="btn btn-primary" name="btn-user_post">Submit</button>
+    </form>
+  </div>
+ 
 
 	<div class="footer">
 	  <p>Plasma Bank Copywrigth 2021</p>
 	</div>
+
+
 
 
 

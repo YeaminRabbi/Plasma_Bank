@@ -1,3 +1,26 @@
+<?php
+	
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+
+	try {
+	  $conn = new PDO("mysql:host=$servername;dbname=plasma_bank", $username, $password);
+	  // set the PDO error mode to exception
+	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	 
+	} catch(PDOException $e) {
+	  echo "Connection failed: " . $e->getMessage();
+	}
+
+	$sql="Select * FROM customer_posts ORDER BY id DESC";
+	$statement = $conn->prepare($sql);
+	$statement->execute();
+	$all_posts = $statement->fetchAll();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,14 +62,13 @@
 	        <a class="nav-link" href="create_post.php">Create POST</a>
 	      </li>
 
-	    <li class="nav-item">
+	      <li class="nav-item">
 	        <a class="nav-link" href="customer_posts.php">Customer POST</a>
 	      </li>
 
 	      <li class="nav-item">
 	        <a class="nav-link" href="donor_posts.php">Donor POST</a>
 	      </li>
-
 
 	      <li class="nav-item">
 	        <a class="nav-link" href="../index.php">Logout</a>
@@ -56,6 +78,28 @@
 	</nav>
 
 
+	<div class="container" style="margin-bottom: 200px;">
+		
+
+		<?php
+
+
+			foreach ($all_posts as $key => $value) {
+			
+		?>
+
+		<div class="posts" style="width: 50%;margin-left: 20%;padding: 10px;border: 2px solid black;margin-top: 10px;">
+			<h5>Name: <?php echo $value['user_name']; ?></h5>
+			<h5>Posted at:  <?php echo $value['date']." | ".$value['time']; ?></h5>
+			<h5>Contact: <?php echo $value['contact']; ?> </h5>
+			<p> <?php echo $value['post']; ?> </p>
+		</div>
+		<?php 
+			}
+		?>
+
+		
+	</div>
 
 
 

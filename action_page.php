@@ -39,7 +39,7 @@
 		$password = $_POST['password'];
 
 
-		$sql = "Select count(*) from users where email='$email' and password='$password' and user_type='CUSTOMER';";
+		$sql = "Select count(*),id,name from users where email='$email' and password='$password' and user_type='CUSTOMER';";
 		$result = $conn->query($sql);
 
 		$row = $result->fetch_assoc();
@@ -47,6 +47,12 @@
 
 		if($row['count(*)']=="1")
 		{
+
+			session_start();
+
+			$_SESSION['id']=$row['id'];
+			$_SESSION['name']=$row['name'];
+
 			header("Location: customer/index.php");
 		}
 		else
