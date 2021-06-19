@@ -64,4 +64,38 @@
 	}
 
 
+
+	//Donor Login
+	if(isset($_POST['btn-user_donor']))
+	{
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+
+
+		$sql = "Select count(*),id,name,blood_group from users where email='$email' and password='$password' and user_type='DONOR';";
+		$result = $conn->query($sql);
+
+		$row = $result->fetch_assoc();
+
+
+		if($row['count(*)']=="1")
+		{
+
+			session_start();
+
+			$_SESSION['donor_id']=$row['id'];
+			$_SESSION['donor_name']=$row['name'];
+			$_SESSION['donor_blood_group']=$row['blood_group'];
+
+			header("Location: donor/index.php");
+		}
+		else
+		{
+			header("Location: donor_login.php");
+		}
+
+
+	}
+
+
 ?>

@@ -13,14 +13,17 @@
 	}
 
 	//create a post
-	if(isset($_POST['btn-user_post']))
+	if(isset($_POST['donor_post']))
 	{
 		$name = $_POST['name'];
 		$post = $_POST['post'];
 		$id = $_POST['id'];
 		$contact= $_POST['contact'];
+		$blood_group= $_POST['blood_group'];
 
-		$sql = "INSERT INTO customer_posts (user_id, user_name, post, contact) VALUES ('$id','$name','$post','$contact')";
+
+
+		$sql = "INSERT INTO donor_posts (user_id, user_name, post, contact,blood_group) VALUES ('$id','$name','$post','$contact','$blood_group')";
 		$conn->query($sql);
 
 
@@ -28,7 +31,6 @@
 	}
 
 
-	
 	//search for donor
 	if(isset($_POST['searchButton']))
 	{
@@ -39,11 +41,11 @@
 	}
 
 
-	//search by name customer post
+	//search by name
 	if(isset($_POST['searchButtonName']))
 	{
-		$customer_name = $_POST['customer_name'];
-		header("Location: searchbyname.php?customer_name=$customer_name");
+		$donor_name = $_POST['donor_name'];
+		header("Location: searchbyname.php?donor_name=$donor_name");
 
 
 	}

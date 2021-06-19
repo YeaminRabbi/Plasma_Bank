@@ -24,7 +24,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Plasma Bank | Customer</title>
+	<title>Plasma Bank - Donor</title>
 </head>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -80,19 +80,6 @@
 
 	<div class="container" style="margin-bottom: 200px;">
 		
-
-		<div class="mt-3">
-			<form action="action_page.php" method="POST">
-				<div class="row" style="margin-left: 15%;">
-					<div class="col-8">
-				        <input class="form-control" type="text" name="customer_name" required>
-					</div>
-					<div class="col-4">
-						<button class="btn btn-warning" name="searchButtonName">Search</button>
-					</div>
-				</div>
-			</form>
-		</div>
 
 		<?php
 

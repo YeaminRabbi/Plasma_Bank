@@ -1,30 +1,19 @@
+
 <?php
+		
+		session_start();
+
+		$userid = $_SESSION['donor_id'];
+		$username= $_SESSION['donor_name'];
+		$blood_group= $_SESSION['donor_blood_group'];
 	
-
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-
-	try {
-	  $conn = new PDO("mysql:host=$servername;dbname=plasma_bank", $username, $password);
-	  // set the PDO error mode to exception
-	  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	 
-	} catch(PDOException $e) {
-	  echo "Connection failed: " . $e->getMessage();
-	}
-
-	$sql="Select * FROM customer_posts ORDER BY id DESC";
-	$statement = $conn->prepare($sql);
-	$statement->execute();
-	$all_posts = $statement->fetchAll();
-
 ?>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Plasma Bank | Customer</title>
+	<title>Plasma Bank - Donor</title>
 </head>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -62,13 +51,14 @@
 	        <a class="nav-link" href="create_post.php">Create POST</a>
 	      </li>
 
-	      <li class="nav-item">
+	     <li class="nav-item">
 	        <a class="nav-link" href="customer_posts.php">Customer POST</a>
 	      </li>
 
 	      <li class="nav-item">
 	        <a class="nav-link" href="donor_posts.php">Donor POST</a>
 	      </li>
+
 
 	      <li class="nav-item">
 	        <a class="nav-link" href="../index.php">Logout</a>
@@ -77,48 +67,43 @@
 	  </div>
 	</nav>
 
+	<div class="container" style="margin-bottom:200px;">
+     <h4>Creating Donor Post</h4>
+    <form action="action_page.php" method="POST">
+      
 
-	<div class="container" style="margin-bottom: 200px;">
-		
+      <div class="form-group">
+        <label for="post">Write your post:</label>
+        <textarea class="form-control" id="post" name="post"></textarea>
+      </div>
 
-		<div class="mt-3">
-			<form action="action_page.php" method="POST">
-				<div class="row" style="margin-left: 15%;">
-					<div class="col-8">
-				        <input class="form-control" type="text" name="customer_name" required>
-					</div>
-					<div class="col-4">
-						<button class="btn btn-warning" name="searchButtonName">Search</button>
-					</div>
-				</div>
-			</form>
-		</div>
+       <div class="form-group">
+        <label for="Contact">Contact Number:</label>
+        <input class="form-control" id="contact" name="contact">
+      </div>
+      
 
-		<?php
-
-
-			foreach ($all_posts as $key => $value) {
-			
-		?>
-
-		<div class="posts" style="width: 50%;margin-left: 20%;padding: 10px;border: 2px solid black;margin-top: 10px;">
-			<h5>Name: <?php echo $value['user_name']; ?></h5>
-			<h5>Posted at:  <?php echo $value['date']." | ".$value['time']; ?></h5>
-			<h5>Contact: <?php echo $value['contact']; ?> </h5>
-			<p> <?php echo $value['post']; ?> </p>
-		</div>
-		<?php 
-			}
-		?>
-
-		
-	</div>
+       <div class="form-group">
+        <label for="">Blood Group:</label>
+        <input class="form-control" id="" name="" disabled value="<?= $blood_group ?>">
+      </div>
 
 
+      <input type="hidden" name="blood_group" value="<?php echo $blood_group  ; ?>">
+
+      <input type="hidden" name="id" value="<?php echo $userid ; ?>">
+      <input type="hidden" name="name" value="<?php echo $username ; ?>">
+      
+      <button type="submit" class="btn btn-primary" name="donor_post">Submit</button>
+    </form>
+  </div>
+ 
 
 	<div class="footer">
 	  <p>Plasma Bank Copywrigth 2021</p>
 	</div>
+
+
 
 
 

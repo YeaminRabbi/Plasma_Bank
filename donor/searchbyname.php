@@ -1,5 +1,14 @@
 <?php
 	
+	if(isset($_GET['donor_name']))
+	{
+		$donor_name=$_GET['donor_name'];
+
+	}
+	else
+	{
+		header("Location: donor_posts.php");
+	}
 
 	$servername = "localhost";
 	$username = "root";
@@ -14,7 +23,7 @@
 	  echo "Connection failed: " . $e->getMessage();
 	}
 
-	$sql="Select * FROM customer_posts ORDER BY id DESC";
+	$sql="Select * FROM donor_posts where user_name like '%$donor_name%' ORDER BY id DESC";
 	$statement = $conn->prepare($sql);
 	$statement->execute();
 	$all_posts = $statement->fetchAll();
@@ -80,19 +89,42 @@
 
 	<div class="container" style="margin-bottom: 200px;">
 		
+		<h4 class="text-center">Donor Posts</h4>
 
-		<div class="mt-3">
-			<form action="action_page.php" method="POST">
-				<div class="row" style="margin-left: 15%;">
-					<div class="col-8">
-				        <input class="form-control" type="text" name="customer_name" required>
-					</div>
-					<div class="col-4">
-						<button class="btn btn-warning" name="searchButtonName">Search</button>
-					</div>
+
+		<form action="action_page.php" method="POST">
+			<div class="row" style="margin-left: 15%;">
+				<div class="col-8">
+					<div class="form-group">
+			       
+			            <select class="form-control" name="search">
+			            <option >--Select Group--</option>
+			            <option value="AB+">AB+</option>
+			            <option value="AB-">AB-</option>
+			            <option value="A+">A+</option>
+			            <option value="A-">A-</option>
+			            <option value="B+">B+</option>
+			            <option value="B-">B-</option>
+			            <option value="O+">O+</option>
+			            <option value="O-">O-</option>
+			          </select>
+			      </div>
 				</div>
-			</form>
-		</div>
+				<div class="col-4">
+					<button class="btn btn-primary" name="searchButton">Search</button>
+				</div>
+			</div>
+		</form>
+		<form action="action_page.php" method="POST">
+			<div class="row" style="margin-left: 15%;">
+				<div class="col-8">
+			        <input class="form-control" type="text" name="donor_name" required>
+				</div>
+				<div class="col-4">
+					<button class="btn btn-warning" name="searchButtonName">Search</button>
+				</div>
+			</div>
+		</form>
 
 		<?php
 
@@ -105,6 +137,7 @@
 			<h5>Name: <?php echo $value['user_name']; ?></h5>
 			<h5>Posted at:  <?php echo $value['date']." | ".$value['time']; ?></h5>
 			<h5>Contact: <?php echo $value['contact']; ?> </h5>
+			<h5>Blood Grp: <?php echo $value['blood_group']?></h5>
 			<p> <?php echo $value['post']; ?> </p>
 		</div>
 		<?php 
